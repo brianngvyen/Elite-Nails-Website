@@ -61,15 +61,17 @@ const directionsLink =
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <main className="min-h-screen bg-[#faf8f5] text-[#302822]">
       <div className="bg-[#302822] px-4 py-2 text-center text-xs tracking-[0.18em] text-white">
         YOUR MOMENT OF BEAUTY STARTS HERE
       </div>
 
-      <header className="sticky top-0 z-30 border-b border-[#e8e0d7] bg-[#faf8f5]/95 backdrop-blur">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-6">
-          <a href="#" className="text-xl font-semibold tracking-[0.16em]">
+      <header className="sticky top-0 z-40 border-b border-[#e8e0d7] bg-[#faf8f5]/95 backdrop-blur">
+        <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6">
+          <a href="/" onClick={closeMenu} className="text-xl font-semibold tracking-[0.16em]">
             ELITE NAILS
             <span className="mt-1 block text-center text-[9px] tracking-[0.38em] text-[#927b65]">
               BEAUTY • CARE • YOU
@@ -77,53 +79,65 @@ export default function Home() {
           </a>
 
           <button
-            className="rounded border border-[#e8e0d7] px-4 py-2 text-xs tracking-widest md:hidden"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle navigation"
+            type="button"
+            className="rounded border border-[#cfc2b4] px-4 py-3 text-xs font-semibold tracking-widest transition hover:bg-[#eee7df] md:hidden"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={menuOpen}
+            aria-controls="main-navigation"
           >
-            {menuOpen ? "CLOSE" : "MENU"}
+            {menuOpen ? "CLOSE ✕" : "MENU ☰"}
           </button>
 
           <div
+            id="main-navigation"
             className={`${
               menuOpen ? "flex" : "hidden"
-            } absolute left-0 top-full w-full flex-col gap-5 border-b border-[#e8e0d7] bg-[#faf8f5] p-6 shadow-lg md:static md:flex md:w-auto md:flex-row md:items-center md:border-0 md:bg-transparent md:p-0 md:shadow-none`}
+            } absolute left-0 right-0 top-full z-50 max-h-[calc(100vh-100px)] flex-col gap-1 overflow-y-auto border-b border-[#e8e0d7] bg-[#faf8f5] p-5 shadow-xl md:static md:flex md:max-h-none md:flex-row md:items-center md:gap-5 md:overflow-visible md:border-0 md:bg-transparent md:p-0 md:shadow-none`}
           >
             <a
               href="#services"
-              onClick={() => setMenuOpen(false)}
-              className="text-sm transition hover:text-[#C75B7A]"
+              onClick={closeMenu}
+              className="rounded px-3 py-3 text-sm transition hover:bg-[#eee7df] hover:text-[#C75B7A] md:py-2"
             >
               Services
             </a>
             <a
               href="#gallery"
-              onClick={() => setMenuOpen(false)}
-              className="text-sm transition hover:text-[#C75B7A]"
+              onClick={closeMenu}
+              className="rounded px-3 py-3 text-sm transition hover:bg-[#eee7df] hover:text-[#C75B7A] md:py-2"
             >
               Gallery
             </a>
             <a
               href="#about"
-              onClick={() => setMenuOpen(false)}
-              className="text-sm transition hover:text-[#C75B7A]"
+              onClick={closeMenu}
+              className="rounded px-3 py-3 text-sm transition hover:bg-[#eee7df] hover:text-[#C75B7A] md:py-2"
             >
               Our Story
             </a>
             <a
               href="#contact"
-              onClick={() => setMenuOpen(false)}
-              className="text-sm transition hover:text-[#C75B7A]"
+              onClick={closeMenu}
+              className="rounded px-3 py-3 text-sm transition hover:bg-[#eee7df] hover:text-[#C75B7A] md:py-2"
             >
               Contact
             </a>
+
+            <a
+              href="/careers"
+              onClick={closeMenu}
+              className="rounded border border-[#e8ded7] bg-white px-3 py-3 text-sm font-semibold text-[#C75B7A] transition hover:bg-[#f8e8ed] md:border-0 md:bg-transparent md:py-2"
+            >
+              Careers &amp; Jobs
+            </a>
+
             <a
               href={bookingLink}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className="rounded-sm bg-[#C75B7A] px-6 py-3 text-center text-sm text-white transition hover:bg-[#A94764]"
+              onClick={closeMenu}
+              className="mt-2 rounded-sm bg-[#C75B7A] px-5 py-3 text-center text-sm text-white transition hover:bg-[#A94764] md:mt-0"
             >
               Book an Appointment
             </a>
@@ -131,7 +145,7 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* Hero section: smaller photo with text beside it */}
+      {/* Hero */}
       <section className="px-6 py-12 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
           <div className="flex flex-col items-start justify-center">
@@ -195,6 +209,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services */}
       <section
         id="services"
         className="scroll-mt-24 px-6 py-24 sm:px-12 lg:px-20"
@@ -260,6 +275,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gallery */}
       <section
         id="gallery"
         className="scroll-mt-24 bg-white px-6 py-24 sm:px-12 lg:px-20"
@@ -306,6 +322,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About */}
       <section
         id="about"
         className="scroll-mt-24 bg-[#eee7df] px-6 py-24 sm:px-12 lg:px-20"
@@ -339,6 +356,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Booking */}
       <section id="booking" className="scroll-mt-24 px-6 py-24 sm:px-12">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs tracking-[0.3em] text-[#C75B7A]">
@@ -371,6 +389,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Footer */}
       <footer
         id="contact"
         className="scroll-mt-24 bg-[#302822] px-6 py-14 text-white sm:px-12"
@@ -431,4 +450,5 @@ export default function Home() {
     </main>
   );
 }
+
 
